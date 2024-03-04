@@ -1,0 +1,109 @@
+<!-- medipal_app/templates/medipal_app/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Medipal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       
+        .navbar-nav .nav-link {
+            color: black; /* White color for nav links */
+            text-decoration: none; /* Remove default underline */
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+        .navbar-nav .nav-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        .navbar navbar-expand-lg navbar-light bg-ligh{
+            color: #1C84E6
+        }
+        footer {
+            background-color: #c9dff5;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .logo img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Medipal Logo">
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pneumonia_detection' %}">Pneumonia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'breast_cancer' %}">Breast Cancer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'kidney' %}">Kidney</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Heart' %}">Heart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Liver' %}">Liver</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Malaria' %}">Malaria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Diabetes' %}">Diabetes</a>
+                    </li>
+                </ul>
+                <!-- Add a dropdown menu for user options -->
+                <div class="navbar-right">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            User Options
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="#">Generate Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="slogan">
+    <h1>Medipal: Multiple Disease Predictor</h1>
+    <h2>"Your Health Ally: Your Trusted Friend"</h2>
+</div>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <p>&copy; {% now "Y" %} Medipal. All Rights Reserved.</p>
+</footer>
+
+<!-- Include Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

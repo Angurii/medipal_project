@@ -1,0 +1,45 @@
+<!-- medipal_app/templates/medipal_app/pneumonia.html -->
+
+{% extends 'medipal_app/base.html' %}
+
+{% block title %}Malaria{% endblock %}
+
+{% block content %}
+    <div class="card card-body" style="border: 1px solid black; box-shadow: 0 0 10px black; background-color: whitesmoke">
+        <!-- Content specific to pneumonia.html -->
+        <h2>Malaria Detection</h2>
+        <div class="container">
+            <div class="image-container">
+                <img src="/static/images/malaria.jpg" alt="Mosquito" style="max-width: 300px; height: 200px;">
+            </div>
+            <div class="form-container">
+                <form id="malaria-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="upload-image">Upload Cell Image:</label>
+                    <input type="file" id="upload-image" name="image">
+                    <button type="submit">Detect Pneumonia</button>
+                </form>
+            </div>
+        </div>
+        <div id="prediction-result"></div>
+    </div>
+
+    <script>
+        document.getElementById("pneumonia-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var formData = new FormData(this);
+            
+            fetch("/pneumonia_detection/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction result
+                document.getElementById("prediction-result").innerText = "Result: " + data.result;
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+{% endblock %}

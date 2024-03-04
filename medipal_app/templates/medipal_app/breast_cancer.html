@@ -1,0 +1,45 @@
+{% extends 'medipal_app/base.html' %}
+
+{% block title %}Breast Cancer Detection{% endblock %}
+
+{% block content %}
+    <div class="card card-body" style="border: 1px solid black; box-shadow: 0 0 10px black; background-color: whitesmoke">
+        
+        <h2>Breast Cancer Detection</h2>
+    
+        <div class="container">
+            <div class="image-container">
+                <img src="/static/images/breast.png" alt="Breast Image" style="max-width: 300px; height: 200px;">
+            </div>
+                <div class="form-container">
+                    <form id="pneumonia-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="upload-image">Upload Mammograph:</label>
+                        <input type="file" id="upload-image" name="image">
+                        <button type="submit">Detect Cancer</button>
+                    </form>
+                </div>
+            </div>
+            <div id="prediction-result"></div>
+        </div>
+    
+        <script>
+            document.getElementById("pneumonia-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                var formData = new FormData(this);
+                
+                fetch("/pneumonia_detection/", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display the prediction result
+                    document.getElementById("prediction-result").innerText = "Result: " + data.result;
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        </script>
+    {% endblock %}
+    
